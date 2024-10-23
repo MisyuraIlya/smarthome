@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "smarthome.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "smarthome.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "smarthome.name" . }}
+    spec:
+      containers:
+      - name: voice-service
+        image: "{{ .Values.voiceService.image.repository }}:{{ .Values.voiceService.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.voiceService.service.port }}
+      - name: video-service
+        image: "{{ .Values.videoService.image.repository }}:{{ .Values.videoService.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.videoService.service.port }}
+      - name: notification-service
+        image: "{{ .Values.notificationService.image.repository }}:{{ .Values.notificationService.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.notificationService.service.port }}
+      - name: nats-streaming
+        image: "{{ .Values.natsStreaming.image.repository }}:{{ .Values.natsStreaming.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.natsStreaming.service.port }}

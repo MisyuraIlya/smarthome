@@ -1,0 +1,43 @@
+voiceService:
+  image:
+    repository: spetsar/voice-service
+    tag: latest
+    pullPolicy: IfNotPresent
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 3001
+    targetPort: 3001
+
+videoService:
+  image:
+    repository: spetsar/video-service
+    tag: latest
+    pullPolicy: IfNotPresent
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 3002
+    targetPort: 3002
+
+notificationService:
+  image:
+    repository: spetsar/notification-service
+    tag: latest
+    pullPolicy: IfNotPresent
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 3003
+    targetPort: 3003
+
+natsStreaming:
+  image:
+    repository: nats-streaming
+    tag: latest
+    pullPolicy: IfNotPresent
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 4222
+    targetPort: 4222
